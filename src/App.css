@@ -1,0 +1,930 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-image: url('/bck-wt.JPG');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  color: #333;
+  line-height: 1.6;
+}
+
+.App {
+  min-height: 100vh;
+}
+
+/* Auth Styles */
+.auth-container {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 2rem;
+  background: rgb(255, 241, 241);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.auth-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.password-hint {
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+.error-message {
+  background: #fee;
+  color: #c33;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  border: 1px solid #fcc;
+  text-align: center;
+}
+
+.auth-container button {
+  width: 100%;
+  padding: 12px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.auth-container button:hover {
+  background: #2980b9;
+}
+
+.auth-container button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+button.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 1rem;
+  color: #666;
+}
+
+.auth-toggle {
+  color: #3498db;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.auth-toggle:hover {
+  color: #2980b9;
+}
+
+/* Header Styles */
+.app-header {
+  background: #2c3e50;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.app-header h1 {
+  font-size: 1.8rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logout-btn {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+  background: #c0392b;
+}
+
+/* Container Styles */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.summary-section {
+  grid-column: 1 / -1;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.summary-section h2 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.total-expense {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #e74c3c;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.category-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.category-item span:first-child {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.category-item span:last-child {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+/* Form Styles */
+.expense-form {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.expense-form h2 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.expense-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.expense-form input,
+.expense-form select {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.expense-form input:focus,
+.expense-form select:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.expense-form button {
+  padding: 12px;
+  background: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.expense-form button:hover {
+  background: #219a52;
+}
+
+/* Expenses List Styles */
+.expenses-list {
+  grid-column: 1 / -1;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.expenses-list h2 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.expenses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.expense-card {
+  border: 1px solid #e1e8ed;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: box-shadow 0.3s;
+}
+
+.expense-card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.expense-info h3 {
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.expense-info .amount {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #e74c3c;
+  margin: 0.25rem 0;
+}
+
+.expense-info .category {
+  background: #f8f9fa;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  color: #666;
+  display: inline-block;
+  margin: 0.25rem 0;
+}
+
+.expense-info .date {
+  color: #666;
+  font-size: 0.9em;
+  margin: 0.25rem 0;
+}
+
+.delete-btn {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+  background: #c0392b;
+}
+
+/* Empty state */
+.expenses-list p {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+  
+  .app-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .auth-container {
+    margin: 50px auto;
+    padding: 1.5rem;
+  }
+  
+  .expenses-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Remove the annoying browser validation styling */
+input:invalid {
+  box-shadow: none;
+}
+/* Profile Dropdown Styles */
+.profile-container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-btn {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.profile-btn:hover {
+  background: #2980b9;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  min-width: 200px;
+  z-index: 1000;
+  margin-top: 5px;
+}
+
+.profile-header {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  background: #f8f9fa;
+}
+
+.profile-header strong {
+  color: #2c3e50;
+}
+
+.profile-header small {
+  color: #666;
+  font-size: 0.8em;
+}
+
+.profile-options {
+  padding: 8px 0;
+}
+
+.profile-option {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 10px 16px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 14px;
+}
+
+.profile-option:hover {
+  background: #f8f9fa;
+}
+
+.profile-option.logout {
+  border-top: 1px solid #eee;
+  color: #e74c3c;
+}
+
+.profile-option.logout:hover {
+  background: #fee;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+.modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  max-width: 400px;
+  width: 90%;
+}
+
+.modal h2 {
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.modal .form-group {
+  margin-bottom: 1rem;
+}
+
+.modal .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.save-btn {
+  flex: 1;
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background: #219a52;
+}
+
+.cancel-btn {
+  flex: 1;
+  background: #95a5a6;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background: #7f8c8d;
+}
+
+/* Dark Mode Styles */
+/* Dark Mode Text Color Fixes */
+body.dark-mode {
+  background-color: #1a1a1a;
+  color: #ffffff !important; /* Force white text everywhere */
+}
+
+body.dark-mode .auth-container,
+body.dark-mode .summary-section,
+body.dark-mode .expense-form,
+body.dark-mode .expenses-list,
+body.dark-mode .modal,
+body.dark-mode .profile-dropdown {
+  background: #2d2d2d;
+  color: #ffffff; /* White text */
+  border-color: #444;
+}
+
+body.dark-mode .auth-container h2,
+body.dark-mode .summary-section h2,
+body.dark-mode .expense-form h2,
+body.dark-mode .expenses-list h2,
+body.dark-mode .modal h2 {
+  color: #ffffff; /* White headings */
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .expense-form input,
+body.dark-mode .expense-form select,
+body.dark-mode .modal input {
+  background: #3d3d3d;
+  color: #ffffff; /* White text in inputs */
+  border-color: #555;
+}
+
+body.dark-mode .form-group input::placeholder,
+body.dark-mode .expense-form input::placeholder {
+  color: #bbbbbb; /* Light gray placeholder */
+}
+
+body.dark-mode .category-item,
+body.dark-mode .expense-card {
+  background: #3d3d3d;
+  border-color: #555;
+  color: #ffffff; /* White text in cards */
+}
+
+body.dark-mode .category-item span:first-child {
+  color: #ffffff; /* White category names */
+}
+
+body.dark-mode .category-item span:last-child {
+  color: #ff6b6b; /* Keep amount color visible */
+}
+
+body.dark-mode .profile-header {
+  background: #3d3d3d;
+  border-color: #555;
+  color: #ffffff; /* White text in profile */
+}
+
+body.dark-mode .profile-header strong {
+  color: #ffffff; /* White username */
+}
+
+body.dark-mode .profile-header small {
+  color: #bbbbbb; /* Light gray email */
+}
+
+body.dark-mode .profile-option {
+  color: #ffffff; /* White text in profile options */
+}
+
+body.dark-mode .profile-option:hover {
+  background: #4d4d4d;
+  color: #ffffff;
+}
+
+body.dark-mode .auth-switch,
+body.dark-mode .auth-toggle {
+  color: #bbbbbb;
+}
+
+body.dark-mode .auth-toggle:hover {
+  color: #ffffff;
+}
+
+body.dark-mode .total-expense {
+  color: #ff6b6b; /* Keep total amount visible */
+}
+
+/* Dark Mode for New List View */
+body.dark-mode .expense-item {
+  background: #3d3d3d;
+  border-color: #555;
+  color: #ffffff;
+}
+
+body.dark-mode .expense-title {
+  color: #ffffff; /* White expense titles */
+}
+
+body.dark-mode .expense-date {
+  color: #bbbbbb; /* Light gray dates */
+}
+
+body.dark-mode .expense-amount {
+  color: #ff6b6b; /* Keep amount visible */
+}
+
+body.dark-mode .category-badge {
+  background: #2980b9;
+  color: #ffffff; /* White text in badges */
+}
+
+/* Dark Mode for View Toggle */
+body.dark-mode .view-toggle {
+  background: #3d3d3d;
+}
+
+body.dark-mode .view-btn {
+  color: #bbbbbb;
+}
+
+body.dark-mode .view-btn.active {
+  background: #3498db;
+  color: #ffffff; /* White text in active button */
+}
+
+body.dark-mode .view-btn:hover:not(.active) {
+  background: #4d4d4d;
+  color: #ffffff; /* White text on hover */
+}
+
+/* Dark Mode for Empty States */
+body.dark-mode .expenses-list p {
+  color: #bbbbbb; /* Light gray for empty messages */
+}
+
+/* Dark Mode for Form Labels */
+body.dark-mode .modal .form-group label {
+  color: #ffffff; /* White form labels */
+}
+
+/* Dark Mode for Cancel Button */
+body.dark-mode .cancel-btn {
+  background: #666;
+  color: #ffffff;
+}
+
+body.dark-mode .cancel-btn:hover {
+  background: #777;
+}
+
+/* Ensure all text in dark mode is readable */
+body.dark-mode * {
+  color: #ffffff !important;
+}
+
+/* Specific exceptions for amounts and important colors */
+body.dark-mode .amount,
+body.dark-mode .expense-amount,
+body.dark-mode .total-expense,
+body.dark-mode .category-item span:last-child {
+  color: #ff6b6b !important; /* Keep amounts red for visibility */
+}
+
+body.dark-mode .category-badge {
+  color: #ffffff !important; /* White text in badges */
+}
+
+body.dark-mode .logout-btn,
+body.dark-mode .delete-btn,
+body.dark-mode .delete-btn-small {
+  color: #ffffff !important; /* White text in buttons */
+}
+
+/* Placeholder text should be lighter */
+body.dark-mode ::placeholder {
+  color: #999 !important;
+}
+
+body.dark-mode :-ms-input-placeholder {
+  color: #999 !important;
+}
+
+body.dark-mode ::-ms-input-placeholder {
+  color: #999 !important;
+}
+
+/* Responsive Design for Profile */
+@media (max-width: 768px) {
+  .profile-dropdown {
+    right: -50px;
+    min-width: 180px;
+  }
+  
+  .modal {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .modal-actions {
+    flex-direction: column;
+  }
+}
+/* Expenses Header with View Toggle */
+.expenses-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.view-toggle {
+  display: flex;
+  gap: 0.5rem;
+  background: #f8f9fa;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.view-btn {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.view-btn.active {
+  background: #3498db;
+  color: white;
+}
+
+.view-btn:hover:not(.active) {
+  background: #e9ecef;
+}
+
+/* Vertical List View */
+.expenses-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.expense-item {
+  background: white;
+  border: 1px solid #e1e8ed;
+  border-radius: 8px;
+  padding: 1rem;
+  transition: all 0.3s;
+}
+
+.expense-item:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transform: translateY(-1px);
+}
+
+.expense-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.expense-details {
+  flex: 1;
+}
+
+.expense-title {
+  margin: 0 0 0.5rem 0;
+  color: #2c3e50;
+  font-size: 1.1em;
+}
+
+.expense-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.category-badge {
+  background: #3498db;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: 500;
+}
+
+.expense-date {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.expense-amount-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.expense-amount {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #e74c3c;
+  min-width: 80px;
+  text-align: right;
+}
+
+.delete-btn-small {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.3s;
+}
+
+.delete-btn-small:hover {
+  background: #c0392b;
+}
+
+/* Dark Mode Styles for New Elements */
+body.dark-mode .view-toggle {
+  background: #3d3d3d;
+}
+
+body.dark-mode .view-btn {
+  color: #bbbbbb;
+}
+
+body.dark-mode .view-btn:hover:not(.active) {
+  background: #4d4d4d;
+}
+
+body.dark-mode .expense-item {
+  background: #3d3d3d;
+  border-color: #555;
+}
+
+body.dark-mode .expense-title {
+  color: #ffffff;
+}
+
+body.dark-mode .expense-date {
+  color: #bbbbbb;
+}
+
+body.dark-mode .category-badge {
+  background: #2980b9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .expenses-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .view-toggle {
+    align-self: stretch;
+    justify-content: center;
+  }
+  
+  .expense-main {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .expense-amount-section {
+    align-self: stretch;
+    justify-content: space-between;
+  }
+  
+  .expense-amount {
+    text-align: left;
+    min-width: auto;
+  }
+  
+  .expense-meta {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .view-btn {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+  
+  .expense-item {
+    padding: 0.75rem;
+  }
+  
+  .expense-title {
+    font-size: 1em;
+  }
+  
+  .expense-amount {
+    font-size: 1.1em;
+  }
+}
